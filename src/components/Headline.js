@@ -4,11 +4,10 @@ import styles from "@/styles/Home.module.css";
 
 export function Headline(props) {
   return (
-    <div className={styles.description}>
-      <p>
-        Get started by editing
-        <code className={styles.code}>src/pages/{props.title}</code>
-      </p>
-    </div>
+    <header className="bg-black py-5">
+      <div className="container mx-atuo">
+        <h1 className="text-white">Nextjs 超初心者</h1>
+      </div>
+    </header>
   );
 }
