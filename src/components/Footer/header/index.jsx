@@ -1,4 +1,4 @@
-import styles from "../components/Footer.module.css";
+import styles from "./Footer.module.css";
 
 const ITEMS = [
   {
@@ -41,7 +41,7 @@ export function Footer() {
               rel="noopener noreferrer"
             >
               <h2>
-                🔸{item.title} <span>-&gt;</span>
+                {item.title} <span>→</span>
               </h2>
               <p>{item.description}</p>
             </a>
