@@ -2,9 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import {Footer} from "../components/Footer";
-import {Headline} from "@/components/Headline";
-
-// const inter = Inter({subsets: ["latin"]});
+import {Headline} from "@/components/Header";
 
 export default function Home() {
   return (
@@ -15,8 +13,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Headline title="Index Page" />
       <main className={styles.main}>
-        <Headline title="Index Page" />
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
