@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
 import {useCallback} from "react";
+import {Link} from "react-router-dom";
 
 export default function Home() {
   const handleClick = useCallback((e) => {
@@ -13,9 +14,9 @@ export default function Home() {
   return (
     <>
       <Headline title="Index Page" />
-      <a href="/about" onClick={handleClick}>
+      <Link href="/about" onClick={handleClick}>
         クリック
-      </a>
+      </Link>
       <main className={styles.main}>
         <h2>index</h2>
         <a
