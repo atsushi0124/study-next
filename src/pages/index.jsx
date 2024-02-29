@@ -4,7 +4,7 @@ import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
 import {useCallback} from "react";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 
 export default function Home() {
   const handleClick = useCallback((e) => {
