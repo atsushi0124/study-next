@@ -3,20 +3,18 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export default function Home() {
   const [count, setCount] = useState(1);
-
-  // let foo = 1;
-  const handleClickPlus = (e) => {
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
-  };
+  const handleClickPlus = useCallback(() => {
+    if (count < 10) {
+      setCount((count) => count + 1);
+    }
+  }, [count]);
 
   useEffect(() => {
     document.body.style.background = "lightblue";
-
     return () => {
       document.body.style.background = "";
     };
