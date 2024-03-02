@@ -7,6 +7,9 @@ import {useCallback, useEffect, useState} from "react";
 
 export default function Home() {
   const [count, setCount] = useState(1);
+  const [text, setText] = useState("");
+  const [isShow, setIsShow] = useState(true);
+
   const handleClickPlus = useCallback(() => {
     if (count < 10) {
       setCount((count) => count + 1);
@@ -20,15 +23,29 @@ export default function Home() {
     };
   }, []);
 
+  const handleClickText = useCallback((e) => {
+    if (e.target.value.length > 5) {
+      window.alert("文字数が5文字以上です");
+      return;
+    }
+    setText(e.target.value.trim());
+  }, []);
+
+  const handleDesplay = useCallback(() => {
+    setIsShow((isShow) => !isShow);
+  }, []);
+
   return (
     <>
       <Headline title="Index Page" />
       <div className={styles.btnArea}>
-        <h1 className={styles.title}>{count}</h1>
-        <button className={styles.btn} href="/about" onClick={handleClickPlus}>
+        {isShow ? <h1 className={styles.title}>{count}</h1> : null}
+        <button onClick={handleDesplay}>{isShow ? "非表示" : "表示"}</button>
+        <button className={styles.btn} onClick={handleClickPlus}>
           クリック
         </button>
       </div>
+      <input type="text" value={text} onChange={handleClickText} />
       <main className={styles.main}>
         <h2>index</h2>
         <a
