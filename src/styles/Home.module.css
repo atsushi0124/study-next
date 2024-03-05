@@ -12,6 +12,19 @@
 .btnArea {
   text-align: center;
 }
+.arrayList {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  color: #000;
+  margin: 10px auto;
+}
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
 
 .description {
   display: inherit;
