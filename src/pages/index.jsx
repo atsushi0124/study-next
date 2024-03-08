@@ -3,12 +3,19 @@ import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
 import {useEffect} from "react";
-import {useCounter} from "@/hooks/useCounter";
-import {useInput} from "src/hooks/useInput";
 
-export default function Home() {
-  const {count, isShow, handleClickPlus, handleDisplay} = useCounter();
-  const {text, array, handleClickText, handleAdd} = useInput();
+export default function Home(props) {
+  console.log(props);
+  const {
+    count,
+    isShow,
+    handleClickPlus,
+    handleDisplay,
+    text,
+    array,
+    handleClickText,
+    handleAdd,
+  } = props;
 
   useEffect(() => {
     document.body.style.background = "lightblue";

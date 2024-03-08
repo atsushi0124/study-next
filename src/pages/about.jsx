@@ -5,9 +5,17 @@ import {Headline} from "@/components/Header";
 import {useCounter} from "@/hooks/useCounter";
 import {useInput} from "src/hooks/useInput";
 
-export default function About() {
-  const {count, isShow, handleClickPlus, handleDisplay} = useCounter();
-  const {text, array, handleClickText, handleAdd} = useInput();
+export default function About(props) {
+  const {
+    count,
+    isShow,
+    handleClickPlus,
+    handleDisplay,
+    text,
+    array,
+    handleClickText,
+    handleAdd,
+  } = props;
 
   return (
     <>
