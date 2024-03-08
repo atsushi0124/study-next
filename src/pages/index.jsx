@@ -1,21 +1,14 @@
-import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect} from "react";
+import {useCounter} from "@/hooks/useCounter";
+import {useInput} from "src/hooks/useInput";
 
 export default function Home() {
-  const [count, setCount] = useState(1);
-  const [text, setText] = useState("");
-  const [isShow, setIsShow] = useState(true);
-  const [array, setArray] = useState([]);
-
-  const handleClickPlus = useCallback(() => {
-    if (count < 10) {
-      setCount((prevCount) => prevCount + 1);
-    }
-  }, [count]);
+  const {count, isShow, handleClickPlus, handleDisplay} = useCounter();
+  const {text, array, handleClickText, handleAdd} = useInput();
 
   useEffect(() => {
     document.body.style.background = "lightblue";
@@ -24,39 +17,18 @@ export default function Home() {
     };
   }, []);
 
-  const handleClickText = useCallback((e) => {
-    if (e.target.value.length > 5) {
-      window.alert("文字数が5文字以上です");
-      return;
-    }
-    setText(e.target.value.trim());
-  }, []);
-
-  const handleDesplay = useCallback(() => {
-    setIsShow((prevIsShow) => !prevIsShow);
-  }, []);
-
-  const handleAdd = useCallback(() => {
-    setArray((prevArray) => {
-      if (prevArray.some((item) => item === text)) {
-        alert("同じ要素がすでに存在します");
-        return prevArray;
-      }
-      return [...prevArray, text];
-    });
-  }, [text]);
-
   return (
     <>
       <Headline title="Index Page" />
       <div className={styles.container}>
         <div className={styles.btnArea}>
           {isShow ? <h1 className={styles.title}>{count}</h1> : null}
-          <button onClick={handleDesplay}>{isShow ? "非表示" : "表示"}</button>
+          <button onClick={handleDisplay}>{isShow ? "非表示" : "表示"}</button>
           <button className={styles.btn} onClick={handleClickPlus}>
             クリック
           </button>
         </div>
+        <input type="text" value={text} onChange={handleClickText} />
         <ul className={styles.arrayList}>
           {array.map((item) => {
             return <li key={item}>{item}</li>;
@@ -64,7 +36,6 @@ export default function Home() {
         </ul>
         <button onClick={handleAdd}>追加</button>
       </div>
-      <input type="text" value={text} onChange={handleClickText} />
       <main className={styles.main}>
         <h2>index</h2>
         <a
