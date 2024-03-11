@@ -7,8 +7,8 @@ import {useInput} from "src/hooks/useInput";
 
 export default function About(props) {
   const {
-    count,
     isShow,
+    doubleCount,
     handleClickPlus,
     handleDisplay,
     text,
@@ -22,7 +22,7 @@ export default function About(props) {
       <Headline title="about Page" />
       <div className={styles.container}>
         <div className={styles.btnArea}>
-          {isShow ? <h1 className={styles.title}>{count}</h1> : null}
+          {isShow ? <h1 className={styles.title}>{doubleCount}</h1> : null}
           <button onClick={handleDisplay}>{isShow ? "非表示" : "表示"}</button>
           <button className={styles.btn} onClick={handleClickPlus}>
             クリック
