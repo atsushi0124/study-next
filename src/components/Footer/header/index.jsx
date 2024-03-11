@@ -1,4 +1,5 @@
 import styles from "./Footer.module.css";
+import {useCallback, useState} from "react";
 
 const ITEMS = [
   {
@@ -28,10 +29,17 @@ const ITEMS = [
 ];
 
 export function Footer() {
+  const [items, setItems] = useState(ITEMS);
+  const handleReduce = useCallback(() => {
+    setItems((prevItems) => {
+      return prevItems.slice(0, prevItems.length - 1);
+    });
+  }, []);
   return (
     <>
       <div className={styles.grid}>
-        {ITEMS.map((item, index) => {
+        <button onClick={handleReduce}>減らす</button>
+        {items.map((item, index) => {
           return (
             <a
               key={index}
