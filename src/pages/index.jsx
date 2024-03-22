@@ -2,9 +2,10 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
-import {useEffect} from "react";
+import {useBgColor} from "@/hooks/useBgColor";
 
 export default function Home(props) {
+  useBgColor();
   console.log(props);
   const {
     count,
@@ -16,13 +17,6 @@ export default function Home(props) {
     handleClickText,
     handleAdd,
   } = props;
-
-  useEffect(() => {
-    document.body.style.background = "lightblue";
-    return () => {
-      document.body.style.background = "";
-    };
-  }, []);
 
   return (
     <>
