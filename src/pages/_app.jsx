@@ -1,10 +1,11 @@
 import "@/styles/globals.css";
 import Head from "next/head";
+import React from "react";
 import {useCounter} from "@/hooks/useCounter";
 import {useInput} from "src/hooks/useInput";
 import {useBgColor} from "@/hooks/useBgColor";
 
-export default function App({Component, pageProps}) {
+const MyApp = ({Component, pageProps}) => {
   const counter = useCounter();
   const Input = useInput();
   useBgColor();
@@ -20,4 +21,6 @@ export default function App({Component, pageProps}) {
       <Component {...pageProps} {...counter} {...Input} />
     </>
   );
-}
+};
+
+export default MyApp;
