@@ -1,9 +1,7 @@
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import {Footer} from "@/components/Footer/header";
+import {Footer} from "@/components/Footer";
 import {Headline} from "@/components/Header";
-import {useCounter} from "@/hooks/useCounter";
-import {useInput} from "src/hooks/useInput";
 
 export default function About(props) {
   const {
