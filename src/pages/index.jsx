@@ -3,79 +3,38 @@ import styles from "@/styles/Home.module.css";
 import {Headline} from "@/components/Header";
 import {Footer} from "@/components/Footer/header";
 import {useBgColor} from "@/hooks/useBgColor";
+import {useCallback, useState} from "react";
+import {get} from "http";
 
-export default function Home(props) {
-  useBgColor();
-  console.log(props);
-  const {
-    count,
-    isShow,
-    handleClickPlus,
-    handleDisplay,
-    text,
-    array,
-    handleClickText,
-    handleAdd,
-  } = props;
+export default function Home() {
+  const [posts, setPosts] = useState([]);
+  console.log(posts);
+
+  const getPosts = useCallback(async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const json = await res.json();
+    setPosts(json);
+    console.log(json);
+  }, []);
+
+  useState(() => {
+    getPosts();
+  }, [getPosts]);
 
   return (
     <>
       <Headline title="Index Page" />
-      <div className={styles.container}>
-        <div className={styles.btnArea}>
-          {isShow ? <h1 className={styles.title}>{count}</h1> : null}
-          <button onClick={handleDisplay}>{isShow ? "非表示" : "表示"}</button>
-          <button className={styles.btn} onClick={handleClickPlus}>
-            クリック
-          </button>
-        </div>
-        <input type="text" value={text} onChange={handleClickText} />
-        <ul className={styles.arrayList}>
-          {array.map((item) => {
-            return <li key={item}>{item}</li>;
+      {posts.length > 0 ? (
+        <ol className={styles.ol}>
+          {posts.map((post) => {
+            return (
+              <li key={post.id} className={styles.container}>
+                {post.title}
+              </li>
+            );
           })}
-        </ul>
-        <button onClick={handleAdd}>追加</button>
-      </div>
-      <main className={styles.main}>
-        <h2>index</h2>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          By{" "}
-          <Image
-            src="/vercel.svg"
-            alt="Vercel Logo"
-            className={styles.vercelLogo}
-            width={100}
-            height={24}
-            priority
-          />
-        </a>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-        <Footer />
-      </main>
+        </ol>
+      ) : null}
     </>
   );
 }
