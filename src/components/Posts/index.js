@@ -1,44 +1,53 @@
-import styles from "@/styles/Home.module.css";
-import {useCallback, useState} from "react";
+import {User} from "@/components/User";
+import styles from "./Post.module.css";
+import {useCallback, useEffect, useReducer} from "react";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "end":
+      return {
+        ...state,
+        data: action.data,
+        loading: false,
+      };
+    case "error":
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    default:
+      throw new Error("no such action type");
+  }
+};
+
+const initialState = {
+  data: [],
+  loading: true,
+  error: null,
+};
 
 export const Posts = () => {
-  //   const [posts, setPosts] = useState([]);
-  //   const [loading, setLoading] = useState(true);
-  //   const [error, setError] = useState(null);
-
-  const [state, setState] = useState({
-    data: [],
-    loading: true,
-    error: null,
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const getPosts = useCallback(async () => {
     try {
       const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      //   console.log(res);
+      console.log(res);
       if (!res.ok) {
         throw new Error("データの取得に失敗しました");
       }
       const json = await res.json();
-      //   setState.data(json);
-      setState((prevState) => {
-        return {
-          data: json,
-          loading: false,
-          error: null,
-        };
-      });
+      console.log(json);
+      dispatch({type: "end", data: json});
     } catch (error) {
-      //   setState.error(error);
+      dispatch({type: "error", error});
     }
-    // state.loading(false);
   }, []);
 
-  useState(() => {
+  useEffect(() => {
     getPosts();
   }, [getPosts]);
-
-  console.log("foo");
 
   //   api先のデータを取得中
   if (state.loading) {
@@ -47,21 +56,30 @@ export const Posts = () => {
 
   //   apiのデータを取得できなかった時
   if (state.error) {
-    return <div>{error.message}</div>;
+    return <div>{state.error.message}</div>;
   }
 
   //   api先のデータを取得できたとき
   if (state.data.length > 0) {
     return (
-      <ol className={styles.ol}>
-        {state.data.map((post) => {
-          return (
-            <li key={post.id} className={styles.container}>
-              {post.title}
-            </li>
-          );
-        })}
-      </ol>
+      <div className={styles.centerList}>
+        <ul className={styles.memoList}>
+          {state.data.map((post) => {
+            // User配列から、現在のpostのuserIdに一致するユーザーを検索
+            const user = User.find((user) => user.id === post.userId);
+            return (
+              <li key={post.id} className={styles.memo}>
+                <strong>タイトル:</strong>
+                <br />
+                {post.title}
+                <br />
+                {/* ユーザー名を表示。ユーザーが見つからない場合は「不明」を表示 */}
+                <strong>投稿者:</strong> {user ? user.name : "不明"}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     );
   } else {
     // データがなかったとき
