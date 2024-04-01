@@ -35,7 +35,7 @@ export const Posts = () => {
       const res = await fetch("https://jsonplaceholder.typicode.com/posts");
       console.log(res);
       if (!res.ok) {
-        throw new Error("データの取得に失敗しました");
+        throw new Error("api先からのデータの取得に失敗しました");
       }
       const json = await res.json();
       console.log(json);
